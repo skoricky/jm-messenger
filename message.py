@@ -44,17 +44,11 @@ class JMessage:
 
     def conv_tobytes(self):
         if self.host:
-            self.srv_responses[self.action]["time"] = str(self.time)
+            # self.srv_responses[self.action]["time"] = str(self.time)
             return json.dumps(self.srv_responses[self.action]).encode(self.encode)
         else:
-            self.cli_actions[self.action]["time"] = str(self.time)
+            # self.cli_actions[self.action]["time"] = str(self.time)
             return json.dumps(self.cli_actions[self.action]).encode(self.encode)
 
     def conv_tojson(self, data: bytes):
         return json.loads(data.decode(self.encode))
-
-    # def send_message(self):
-    #     self.sock.send(self.conv_tobytes())
-    #
-    # def recv_message(self, bydata):
-    #     return self.conv_tojson(bydata)
