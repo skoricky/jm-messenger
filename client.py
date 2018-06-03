@@ -7,8 +7,9 @@ from message import *
 class JClient:
 
     def __init__(self):
+        host_settings = get_settings()
         self.sock = self.get_client_sock()
-        self.tcp_client_run(self.sock, tuple(get_settings()))
+        self.tcp_client_run(self.sock, (host_settings["ip"], host_settings["port"]))
 
     @staticmethod
     def get_client_sock(sock_type=SOCK_STREAM):

@@ -12,14 +12,14 @@ class JServer:
         return self.__listen
 
     def __init__(self):
-        self.sock = self.get_server_sock(tuple(get_settings()))
+        host_settings = get_settings()
+        self.sock = self.get_server_sock((host_settings["ip"], host_settings["port"]))
         self.tcp_server_run(self.sock, self.listen)
 
     @staticmethod
     def get_server_sock(host_settings, sock_type=SOCK_STREAM):
         sock = socket(AF_INET, sock_type)
         sock.bind(host_settings)
-        print(type(sock))
         return sock
 
     @staticmethod
