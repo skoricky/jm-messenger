@@ -44,6 +44,7 @@ class JServer:
                 pass
             else:
                 print(f'Client={addr} connection')
+                clients(client)
             finally:
                 wait = 0
                 r = []
@@ -64,11 +65,28 @@ class JServer:
             client.close()
         sock.close()
 
-    def get_messge(self):
+    def get_message(self, sock):
+        bydata = sock.recv(1024)
+        jdata = JMessage().conv_tojson(bydata)
+        return jdata
+
+    def set_message(self, sock):
         pass
 
-    def set_message(self):
+    def write_responses(self, response, clients):
         pass
+
+    def read_requests(self, clients):
+        requests = {}
+        for sock in clients:
+            try:
+                data = self.get_message(sock)
+                requests[sock] = data
+            except:
+                print('Клиент {} {} отключился'.format(sock.fileno(),
+                                                       sock.getpeername()))
+                clients.remove(sock)
+        return requests
 
 
 if __name__ == '__main__':
