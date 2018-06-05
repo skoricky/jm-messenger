@@ -2,7 +2,7 @@ from socket import *
 from select import *
 
 from settings import *
-from message import *
+from myhost import get_message, set_message
 
 
 class JServer:
@@ -15,7 +15,7 @@ class JServer:
 
     @clients.setter
     def clients(self, value):
-        self.__clients.append(value)
+        self.__clients = value
 
     @property
     def listen(self):
@@ -37,56 +37,57 @@ class JServer:
         sock.listen(listen)
         sock.settimeout(0.2)
         while True:
-            print(f'Server={sock.getsockname()} connection wait...')
+            # print(f'Server={sock.getsockname()} connection wait...')
             try:
                 client, addr = sock.accept()
-            except:
+            except OSError as e:
                 pass
             else:
                 print(f'Client={addr} connection')
-                clients(client)
+                clients.append(client)
             finally:
-                wait = 0
-                r = []
-                w = []
+                twait = 0
+                rclients = []
+                wclients = []
                 try:
-                    r, w, e = select(clients, clients, [], wait)
+                    rclients, wclients, ex = select(clients, clients, [], twait)
+                    print("read: ", rclients)
+                    print("write: ", wclients)
                 except:
                     pass
 
-            while True:
-                bydata = client.recv(1024)
-                if not bydata:
-                    break
-                jdata = JMessage().conv_tojson(bydata)
-                if jdata["action"] != "quit":
-                    client.send(JMessage(action="200", host=True).conv_tobytes())
-                print(f'Server={sock.getsockname()} connection={addr} action={jdata}')
-            client.close()
+                request, clients = JServer.read_requests(rclients)
+
+                clients = JServer.write_responses(wclients)
+                # print(f'Server={sock.getsockname()} connection={addr} action={jdata}')
+                # client.close() todo: разобраться, когда закрывать клиентов
         sock.close()
 
-    def get_message(self, sock):
-        bydata = sock.recv(1024)
-        jdata = JMessage().conv_tojson(bydata)
-        return jdata
-
-    def set_message(self, sock):
-        pass
-
-    def write_responses(self, response, clients):
-        pass
-
-    def read_requests(self, clients):
-        requests = {}
+    @staticmethod
+    def write_responses(clients):
         for sock in clients:
             try:
-                data = self.get_message(sock)
-                requests[sock] = data
+                set_message(sock, action="probe", host=True)
             except:
-                print('Клиент {} {} отключился'.format(sock.fileno(),
-                                                       sock.getpeername()))
+                print('Client {} {} down'.format(sock.fileno(),
+                                                 sock.getpeername()))
                 clients.remove(sock)
-        return requests
+        return clients
+
+    @staticmethod
+    def read_requests(clients):
+        requests = {}
+        for sock in clients:
+            print(sock)
+            try:
+                data = get_message(sock)
+                requests[sock] = data
+                # print("msg: ", requests)
+            except:
+                print('Client {} {} down'.format(sock.fileno(),
+                                                 sock.getpeername()))
+                clients.remove(sock)
+        return requests, clients
 
 
 if __name__ == '__main__':
