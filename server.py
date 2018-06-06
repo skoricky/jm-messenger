@@ -82,9 +82,10 @@ class JServer:
     @staticmethod
     def write_responses(requests, clients):
         for sock in clients:
-            if sock in requests:
+            for _ in requests:
                 try:
-                    set_message(sock, action="probe")
+                    data = requests[_]
+                    set_message(sock, action=data["action"])
                 except:
                     print('Client {} {} down'.format(sock.fileno(),
                                                      sock.getpeername()))
