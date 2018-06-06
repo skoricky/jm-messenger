@@ -1,8 +1,13 @@
 from socket import *
 from select import *
+import logging
 
 from settings import *
 from myhost import get_message, set_message
+import log_config
+
+
+logger = logging.getLogger('jm.server')
 
 
 class JServer:
@@ -35,7 +40,8 @@ class JServer:
     @staticmethod
     def tcp_server_run(sock, listen, clients):
         sock.listen(listen)
-        sock.settimeout(0.2)
+        sock.settimeout(0.5)
+        logger.info(f'[tcp_server_run]Server={sock.getsockname()} run')
         while True:
             # print(f'Server={sock.getsockname()} connection wait...')
             try:
@@ -43,35 +49,46 @@ class JServer:
             except OSError as e:
                 pass
             else:
-                print(f'Client={addr} connection')
+                logger.info(f'[tcp_server_run]Client={addr} connection')
+                # print(f'Client={addr} connection')
                 clients.append(client)
             finally:
-                twait = 0
-                rclients = []
-                wclients = []
-                try:
-                    rclients, wclients, ex = select(clients, clients, [], twait)
-                    print("read: ", rclients)
-                    print("write: ", wclients)
-                except:
-                    pass
-
+                rclients, wclients = JServer.get_select_clients(clients)
                 request, clients = JServer.read_requests(rclients)
-
-                clients = JServer.write_responses(wclients)
+                clients = JServer.write_responses(request, wclients)
                 # print(f'Server={sock.getsockname()} connection={addr} action={jdata}')
                 # client.close() todo: разобраться, когда закрывать клиентов
         sock.close()
 
     @staticmethod
-    def write_responses(clients):
+    def get_select_clients(clients):
+        twait = 0
+        rclients = []
+        wclients = []
+        try:
+            rclients, wclients, ex = select(clients, clients, [], twait)
+            if len(rclients) > 0:
+                logger.debug(f'[get_select_clients]clients read: {rclients}')
+                print("read: ", rclients)
+            if len(wclients) > 0:
+                logger.debug(f'[get_select_clients]clients write: {wclients}')
+                print("write: ", wclients)
+        except:
+            pass
+            # logger.debug(f'clients no select')
+            # print(f'clients no select')
+        return rclients, wclients
+
+    @staticmethod
+    def write_responses(requests, clients):
         for sock in clients:
-            try:
-                set_message(sock, action="probe", host=True)
-            except:
-                print('Client {} {} down'.format(sock.fileno(),
-                                                 sock.getpeername()))
-                clients.remove(sock)
+            if sock in requests:
+                try:
+                    set_message(sock, action="probe")
+                except:
+                    print('Client {} {} down'.format(sock.fileno(),
+                                                     sock.getpeername()))
+                    clients.remove(sock)
         return clients
 
     @staticmethod
