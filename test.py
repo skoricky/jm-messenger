@@ -20,6 +20,7 @@ class TestClient(unittest.TestCase):
     def test_get_server_sock(self):
         pass
 
+
 class TestMessage(unittest.TestCase):
     def test_conv_tobytes(self):
         data = JMessage(action='presence')

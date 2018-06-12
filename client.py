@@ -15,6 +15,7 @@ class JClient:
     @staticmethod
     def get_client_sock(sock_type=SOCK_STREAM):
         sock = socket(AF_INET, sock_type)
+        print(sock.type)
         return sock
 
     @staticmethod
@@ -39,7 +40,6 @@ class JClient:
                     else:
                         set_message(sock, action)
         sock.close()
-
 
 
 if __name__ == '__main__':
