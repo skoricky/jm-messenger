@@ -1,0 +1,15 @@
+2018-06-13 12:50:24,528 - server.py - INFO - [tcp_server_run]Server=('127.0.0.1', 7777) run 
+2018-06-13 12:50:29,263 - server.py - INFO - [tcp_server_run]Client=('127.0.0.1', 54216) connection 
+2018-06-13 12:50:29,263 - server.py - DEBUG - [get_select_clients]server read: [<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54216)>] 
+2018-06-13 12:50:29,263 - server.py - DEBUG - [get_select_clients]server write: [<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54216)>] 
+2018-06-13 12:50:29,263 - server.py - DEBUG - [get_select_clients]Client=432('127.0.0.1', 54216) action: {'action': 'presence', 'time': '', 'type': 'status', 'user': ''} 
+2018-06-13 12:50:29,763 - server.py - DEBUG - [get_select_clients]server write: [<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54216)>] 
+2018-06-13 12:50:30,263 - server.py - DEBUG - [get_select_clients]server write: [<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54216)>] 
+2018-06-13 12:50:30,763 - server.py - DEBUG - [get_select_clients]server write: [<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54216)>] 
+2018-06-13 12:50:31,263 - server.py - DEBUG - [get_select_clients]server write: [<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54216)>] 
+2018-06-13 12:50:31,763 - server.py - DEBUG - [get_select_clients]server write: [<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54216)>] 
+2018-06-13 12:50:32,263 - server.py - DEBUG - [get_select_clients]server write: [<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54216)>] 
+2018-06-13 12:50:32,763 - server.py - DEBUG - [get_select_clients]server write: [<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54216)>] 
+2018-06-13 12:50:33,263 - server.py - DEBUG - [get_select_clients]server read: [<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54216)>] 
+2018-06-13 12:50:33,263 - server.py - DEBUG - [get_select_clients]server write: [<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54216)>] 
+2018-06-13 12:50:33,263 - server.py - INFO - [get_select_clients]Client 432 ('127.0.0.1', 54216) down 

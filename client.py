@@ -1,8 +1,8 @@
 from socket import *
 import time
 
-from settings import *
-from myhost import get_message, set_message
+from settings.settings import *
+from chat.message import get_message, set_message
 
 
 class JClient:
@@ -39,7 +39,6 @@ class JClient:
                     else:
                         set_message(sock, action)
         sock.close()
-
 
 
 if __name__ == '__main__':

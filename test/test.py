@@ -1,9 +1,7 @@
 import unittest
 
-from server import JServer
-from client import JClient
-from message import *
-from settings import *
+from settings.settings import *
+from chat.message import *
 
 
 class TestSettings(unittest.TestCase):
@@ -19,6 +17,7 @@ class TestServer(unittest.TestCase):
 class TestClient(unittest.TestCase):
     def test_get_server_sock(self):
         pass
+
 
 class TestMessage(unittest.TestCase):
     def test_conv_tobytes(self):
