@@ -1,4 +1,0 @@
-
-
-class JRepository:
-    pass
