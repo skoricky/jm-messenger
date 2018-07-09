@@ -1,44 +1,13 @@
-# base = 10
-# x = int(input())
-# print()
-#
-# while x > 0:
-#     digit = x % base
-#     print(digit, end='')
-#     x //= base
-#
+_list = [2, 4, 4, 3, 3]
 
 
-# def read_requests(clients):
-#     requests = {}  # Словарь ответов сервера вида {сокет: запрос}
-#     for sock in clients:
-#         try:
-#             data = sock.recv(1024).decode('ascii')
-#             requests[sock] = data
-#         except:
-#             print('Клиент {} {} отключился'.format(sock.fileno(),
-#                                                    sock.getpeername()))
-#             clients.remove(sock)
-#     return requests
-
-class FatherClass:
-    def __init__(self, obj):
-        self = obj
+def find_number(some_list):
+    xor_sum = 0
+    for i in some_list:
+        xor_sum = xor_sum ^ i
+        # print(xor_sum)
+    return xor_sum
 
 
-class SonClass(FatherClass):
-    def __init__(self):
-        self.a = 'son'
-        super().__init__(self)
-
-
-class DotherClass(FatherClass):
-    def __init__(self):
-        self.a = 'dother'
-        super().__init__(self)
-
-    def __call__(self, *args, **kwargs):
-        pass
-
-
-
+if __name__ == '__main__':
+    print(find_number(_list))

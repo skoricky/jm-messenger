@@ -1,0 +1,46 @@
+{
+  "actions": {
+    "presence": {
+      "action": "presence",
+      "time": "",
+      "type": "status",
+      "user": ""
+    },
+    "quit": {
+      "action": "quit"
+    },
+    "get_contacts": {
+      "action": "get_contacts",
+      "time": ""
+    },
+    "add_contact": {
+      "action": "add_contact",
+      "user_id": "",
+      "time": ""
+    },
+    "del_contact": {
+      "action": "del_contact",
+      "user_id": "",
+      "time": ""
+    }
+  },
+  "response": {
+    "probe": {
+      "action": "probe",
+      "time": ""
+    },
+    "200": {
+      "response": "200",
+      "time": "",
+      "alert": "answer: Ok."
+    },
+    "202": {
+      "response": "202",
+      "quantity": ""
+    },
+    "contact_list": {
+      "action": "contact_list",
+      "users": {}
+    }
+  }
+}

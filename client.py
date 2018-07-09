@@ -22,6 +22,7 @@ class JClient:
     def tcp_client_run(sock, host_settings, status):
         flag = True
         sock.connect(host_settings)
+        user = input('User name: ')
         while True:
             if status == 'r':
                 data = get_message(sock)
@@ -30,15 +31,15 @@ class JClient:
             else:
                 if flag:
                     flag = False
-                    set_message(sock, action="presence")
+                    set_message(sock, action="presence", user=user)
                 else:
                     action = input('action= ')
                     if action[0].lower() == 'q':
-                        set_message(sock, action="quit")
+                        set_message(sock, action="quit", user=user)
                         time.sleep(0.2)
                         break
                     else:
-                        set_message(sock, action)
+                        set_message(sock, action, user)
         sock.close()
 
 
